@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link, Outlet } from 'react-router-dom'
 
 import { AiOutlineMenuUnfold, AiFillCloseSquare } from "react-icons/ai";
-import { FaHome, FaUserEdit } from "react-icons/fa";
+import { FaHome, FaTeamspeak, FaUserEdit } from "react-icons/fa";
 import { GoProjectSymlink } from "react-icons/go";
 import { MdNoAccounts, MdReviews } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
@@ -21,10 +21,10 @@ function App() {
   return (
     <>
       {" "}
-      <div className="min-h-screen flex bg-gray-100  relative">
+      <div className="min-h-screen bg-black  flex relative">
         {/* Sidebar */}
         <div
-          className={`md:w-64 w-[170px]  rounded-md  p-3 fixed left-0 top-[60px] ${
+          className={`md:w-64 w-[170px]  rounded-tr-md  p-3 fixed left-0 top-[60px] ${
             open ? "flex transition-all duration-500" : "hidden"
           }   md:flex bg-black  shadow h-[100vh]  z-20`}
         >
@@ -33,10 +33,7 @@ function App() {
             <li className="flex  items-center gap-2">
               <FaHome className="w-5 h-5"></FaHome> <Link to={"/"}> Home</Link>
             </li>
-            <li className="flex  items-center gap-2">
-              <FaUserEdit className="w-5 h-5"></FaUserEdit>{" "}
-              <Link to={"/users"}>Users</Link>
-            </li>
+            
             <li className="flex  items-center gap-2">
               <GoProjectSymlink className="w-5 h-5"></GoProjectSymlink>
               <Link to={"/projects"}>Project</Link>
@@ -52,6 +49,10 @@ function App() {
             <li className="flex  items-center gap-2">
               <MdNoAccounts className="w-5 h-5"></MdNoAccounts>
               <Link to={"/social"}>Social</Link>
+            </li>
+            <li className="flex  items-center gap-2">
+              <FaTeamspeak className="w-5 h-5"></FaTeamspeak>
+              <Link to={"/Team"}>Team</Link>
             </li>
           </ul>
 

@@ -5,8 +5,6 @@ import './index.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Home from './Component/Home/Home.jsx'
 import AuthProvider from './Component/Authprovider/AuthProvider.jsx'
-
-import MenageUsee from "./Component/Users/Users.jsx";
 import Projects from './Component/Projects/Projects.jsx'
 import Services from './Component/Services/Services.jsx'
 import Review from './Component/Review/Review.jsx'
@@ -19,10 +17,7 @@ const routes = createBrowserRouter([
         path: "/",
         element: <Home></Home>,
       },
-      {
-        path: "/users",
-        element: <MenageUsee></MenageUsee>,
-      },
+     
       {
         path: "/projects",
         element: <Projects></Projects>,
@@ -39,6 +34,10 @@ const routes = createBrowserRouter([
         path: "/Social",
         element: <Social></Social>,
       },
+      {
+        path: "/Team",
+        element: <Team></Team>,
+      },
     ],
   },
 ]);
@@ -51,6 +50,7 @@ import {
   QueryClientProvider,
 } from "@tanstack/react-query";
 import Social from './Component/Social/Social.jsx'
+import Team from './Component/Team/Team.jsx'
 
 const queryClient = new QueryClient();
 
