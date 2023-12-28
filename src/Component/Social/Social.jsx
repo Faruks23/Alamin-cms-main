@@ -40,13 +40,16 @@ const Social = () => {
     setLoading(true);
     const imageUrl = await uploadImage(image);
     if (editData && imageUrl) {
-      fetch(`${import.meta.env.VITE_URL_KEY}/Social/update/${editData._id}`, {
-        method: "PUT",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify({ editData, images: imageUrl }),
-      })
+      fetch(
+        `${import.meta.env.VITE_SERVER_KEY}/Social/update/${editData._id}`,
+        {
+          method: "PUT",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify({ editData, images: imageUrl }),
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
@@ -70,7 +73,7 @@ const Social = () => {
     //  handle delete account
     setLoading(true);
     if (id) {
-      fetch(`${import.meta.env.VITE_URL_KEY}/Social/delete/${id}`, {
+      fetch(`${import.meta.env.VITE_SERVER_KEY}/Social/delete/${id}`, {
         method: "DELETE",
       })
         .then((res) => res.json())

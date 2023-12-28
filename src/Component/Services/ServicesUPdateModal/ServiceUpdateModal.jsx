@@ -9,7 +9,7 @@ const ServiceModal = ({ isOpen, service, closeModal, PrevData, setData }) => {
   const handleSave = () => {
     const id = service._id;
     const newService = { name, description, image };
-    fetch(`${process.env.VITE_URL_KEY}/service/update/${id}`, {
+    fetch(`${process.env.VITE_SERVER_KEY}/service/update/${id}`, {
       method: "POST",
       headers: {
         "content-type": "application/json",

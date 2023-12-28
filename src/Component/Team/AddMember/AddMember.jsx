@@ -31,7 +31,7 @@ const AddMember = ({ isAddModal, setIsAddModal, setUpdated }) => {
     try {
       const imageUrl = await uploadImage(image);
 
-      fetch(`${import.meta.env.VITE_URL_KEY}/Social/post`, {
+      fetch(`${import.meta.env.VITE_SERVER_KEY}/Social/post`, {
         method: "POST",
         headers: {
           "content-type": "application/json",

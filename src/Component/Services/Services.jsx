@@ -32,8 +32,8 @@ const Services = () => {
       });
   }, []);
 
-  console.log(import.meta.env.VITE_URL_KEY);
-  console.log(data);
+  // console.log(import.meta.env.VITE_URL_KEY);
+  // console.log(data);
   // console.log(data);
   // update services
   // const [edit,setEdit]=useState(false)
@@ -65,7 +65,7 @@ const Services = () => {
       const serviceIds = deleteService;
       const service = { selectedService: serviceIds };
 
-      fetch(`${import.meta.env.VITE_URL_KEY}/service/delete`, {
+      fetch(`${import.meta.env.VITE_SERVER_KEY}/service/delete`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
