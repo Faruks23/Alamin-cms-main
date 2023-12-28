@@ -21,7 +21,7 @@ const Social = () => {
 
   // Assume you have a function to fetch social accounts data
   const fetchSocialAccounts = async () => {
-    const response = await fetch(`${import.meta.env.VITE_URL_KEY}/social`)
+    const response = await fetch(`${import.meta.env.VITE_SERVER_KEY}/social`);
        const data = await response.json();
          setSocialAccounts(data);
       

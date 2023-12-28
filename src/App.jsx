@@ -16,44 +16,70 @@ function App() {
 
   const handleCloseMenu = () => {
      setOpen(false)
-   }
+  }
+  
+
+
+  const link = [
+    {
+      name: "Home",
+      path: "/",
+      icon: FaHome,
+    },
+    {
+      name: "project",
+      path: "/projects",
+      icon: GoProjectSymlink,
+    },
+    {
+      name: "Services",
+      path: "/services",
+      icon: GoProjectSymlink,
+    },
+    {
+      name: "Review",
+      path: "/review",
+      icon: MdReviews,
+    },
+    {
+      name: "Social",
+      path: "/social",
+      icon: MdNoAccounts,
+    },
+    {
+      name: "Teams",
+      path: "/Team",
+      icon: FaTeamspeak,
+    },
+  ];
 
   return (
     <>
       {" "}
-      <div className="min-h-screen bg-black  flex relative">
+      <div className="min-h-screen  bg-[#111827] flex relative">
         {/* Sidebar */}
+   
         <div
-          className={`md:w-64 w-[170px]  rounded-tr-md  p-3 fixed left-0 top-[60px] ${
-            open ? "flex transition-all duration-500" : "hidden"
-          }   md:flex bg-black  shadow h-[100vh]  z-20`}
+          className={`md:w-64 w-[170px]   rounded-tr-md  p-5 fixed left-0 top-[60px] ${
+            open
+              ? "flex transition-all duration-500"
+              : "w-0 opacity-0 transition-all duration-500 "
+          }   md:flex w-[300px] bg-[#111827] shadow h-[100vh]  z-20`}
         >
           {/* Your sidebar content goes here */}
-          <ul className="text-white capitalize font-semibold flex flex-col gap-3  mt-5">
-            <li className="flex  items-center gap-2">
-              <FaHome className="w-5 h-5"></FaHome> <Link to={"/"}> Home</Link>
-            </li>
-            
-            <li className="flex  items-center gap-2">
-              <GoProjectSymlink className="w-5 h-5"></GoProjectSymlink>
-              <Link to={"/projects"}>Project</Link>
-            </li>
-            <li className="flex  items-center gap-2">
-              <GoProjectSymlink className="w-5 h-5"></GoProjectSymlink>
-              <Link to={"/services"}>Services</Link>
-            </li>
-            <li className="flex  items-center gap-2">
-              <MdReviews className="w-5 h-5"></MdReviews>
-              <Link to={"/review"}>Review</Link>
-            </li>
-            <li className="flex  items-center gap-2">
-              <MdNoAccounts className="w-5 h-5"></MdNoAccounts>
-              <Link to={"/social"}>Social</Link>
-            </li>
-            <li className="flex  items-center gap-2">
-              <FaTeamspeak className="w-5 h-5"></FaTeamspeak>
-              <Link to={"/Team"}>Team</Link>
-            </li>
+          <ul className="text-white capitalize font-serif font-bold flex flex-col gap-3  mt-5 w-full">
+            {link.map((item) => {
+              return (
+                <>
+                  <Link to={item.path}>
+                    <li className="flex bg-slate-800  items-center gap-2 p-2 w-full rounded-lg shadow-lg hover:bg-slate-950 hover:ml-2 transition-all duration-500 ">
+                      <item.icon className="w-5 h-5" />
+                      {item.name}
+                    </li>
+                  </Link>
+                </>
+              );
+            })}
           </ul>
 
           <ul className="text-white capitalize font-semibold flex flex-col gap-3 absolute bottom-20  ">

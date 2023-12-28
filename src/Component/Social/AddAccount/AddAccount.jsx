@@ -31,7 +31,7 @@ const AddAccount = ({ isAddModal, setIsAddModal, setUpdated }) => {
     try {
       const imageUrl = await uploadImage(image);
 
-      fetch(`${import.meta.env.VITE_URL_KEY}/Social/post`, {
+      fetch(`${import.meta.env.VITE_SERVER_KEY}/Social/post`, {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -40,11 +40,11 @@ const AddAccount = ({ isAddModal, setIsAddModal, setUpdated }) => {
       })
         .then((res) => res.json())
         .then((data) => {
-           console.log(data);
+          console.log(data);
           if (data.insertedId) {
-            alert("Success")
-            setIsAddModal(false)
-            setUpdated(data.insertedId)
+            alert("Success");
+            setIsAddModal(false);
+            setUpdated(data.insertedId);
             setLoading(false);
           }
         });
