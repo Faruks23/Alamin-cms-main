@@ -58,12 +58,12 @@ function App() {
       {" "}
       <div className="min-h-screen  bg-[#111827] flex relative">
         {/* Sidebar */}
-   
+
         <div
           className={`md:w-64 w-[170px]   rounded-tr-md  p-5 fixed left-0 top-[60px] ${
             open
               ? "flex transition-all duration-500"
-              : "w-0 opacity-0 transition-all duration-500 "
+              : "w-0 opacity-0 md:opacity-100  transition-all duration-500 "
           }   md:flex w-[300px] bg-[#111827] shadow h-[100vh]  z-20`}
         >
           {/* Your sidebar content goes here */}
@@ -99,7 +99,7 @@ function App() {
           {/* Header */}
 
           <header className="w-full fixed top-0 z-20  shadow-md  bg-[#1F2937] h-[60px] text-white flex items-center  justify-between cursor-pointer px-[3%]">
-            <div className="content  ">
+            <div className="content flex items-center ga-5  ">
               {open ? (
                 <>
                   <div onClick={handleCloseMenu} className="close md:hidden">
@@ -113,6 +113,13 @@ function App() {
                   </div>
                 </>
               )}
+
+              <Link to={"https://alaminislam.netlify.app/"}>
+
+              <h1 className=" font-bold underline text-white hover:text-blue-400 hover:underline-offset-4 text-2xl md:ml-0 ml-10">
+                Live Preview
+              </h1>
+              </Link>
             </div>
             <div className=" flex  justify-end">
               <ul className="text-white capitalize font-semibold flex   gap-3     ">

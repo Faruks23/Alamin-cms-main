@@ -170,7 +170,7 @@ const Services = () => {
                       key={service._id}
                       className={`md:w-[350px] ${
                         deleteService.includes(service._id)
-                          ? "border-red-500 bg-red-200"
+                          ? "border-red-500  bg-gray-100 text-black"
                           : ""
                       } bg-gray-900 text-white  w-full h-[200px] shadow-lg flex  rounded-md relative`}
                     >

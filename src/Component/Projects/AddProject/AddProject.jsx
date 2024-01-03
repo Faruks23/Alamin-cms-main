@@ -1,21 +1,14 @@
 import React, { useState } from "react";
 import uploadImage from "../../../utils/UploadImage";
 
-const AddServiceModal = ({ isOpen, onClose, onAddService }) => {
-  const [serviceName, setServiceName] = useState("");
+const AddProjectModal = ({ isOpen, onClose }) => {
+  const [ProjectName, setServiceName] = useState("");
   const [description, setDescription] = useState("");
+  const [loading,setLoading]=useState(false)
   const [image, setImage] = useState(null);
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     setImage(file);
-
-    // // Optionally, you can display a preview of the selected image
-    // const reader = new FileReader();
-    // reader.onloadend = () => {
-    //   // Set a preview image if needed
-    //   // setPreviewImage(reader.result);
-    // };
-    // reader.readAsDataURL(file);
   };
   const handleAdd = async () => {
     setLoading(true);
@@ -27,20 +20,19 @@ const AddServiceModal = ({ isOpen, onClose, onAddService }) => {
     try {
       const imageUrl = await uploadImage(image);
 
-      fetch(`${import.meta.env.VITE_SERVER_KEY}/Social/post`, {
+      fetch(`${import.meta.env.VITE_SERVER_KEY}/Project/add`, {
         method: "POST",
         headers: {
           "content-type": "application/json",
         },
-        body: JSON.stringify({ name, link, image: imageUrl }),
+        body: JSON.stringify({ ProjectName, description, image: imageUrl }),
       })
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
           if (data.insertedId) {
             alert("Success");
-            setIsAddModal(false);
-            setUpdated(data.insertedId);
+            onClose()
             setLoading(false);
           }
         });
@@ -49,7 +41,6 @@ const AddServiceModal = ({ isOpen, onClose, onAddService }) => {
       console.error("Error in handleImageUpload:", error);
     }
   };
-
   return (
     <div
       className={`${
@@ -57,14 +48,14 @@ const AddServiceModal = ({ isOpen, onClose, onAddService }) => {
       } fixed inset-0 bg-black bg-opacity-40 z-50 flex items-center justify-center`}
     >
       <div className="bg-white rounded-lg shadow-lg w-96 p-6">
-        <h2 className="text-xl font-bold mb-4">Add New Service</h2>
+        <h2 className="text-xl font-bold mb-4">Add New Project</h2>
         <div className="mb-4">
           <label className="block text-gray-600 font-semibold mb-2">
-            Service Name
+            Project Name
           </label>
           <input
             type="text"
-            value={serviceName}
+            value={ProjectName}
             onChange={(e) => setServiceName(e.target.value)}
             className="w-full border rounded p-2"
           />
@@ -96,7 +87,7 @@ const AddServiceModal = ({ isOpen, onClose, onAddService }) => {
             className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
             onClick={handleAdd}
           >
-            Add
+            {loading ?"processing...":'Submit'}
           </button>
           <button
             className="ml-2 bg-gray-300 text-gray-600 px-4 py-2 rounded-lg hover:bg-gray-400"
@@ -110,4 +101,4 @@ const AddServiceModal = ({ isOpen, onClose, onAddService }) => {
   );
 };
 
-export default AddServiceModal;
+export default AddProjectModal;
