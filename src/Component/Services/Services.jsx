@@ -31,6 +31,7 @@ const Services = () => {
         setLoading(false);
       });
   }, []);
+  console.log(data);
 
   // console.log(import.meta.env.VITE_URL_KEY);
   // console.log(data);
@@ -75,7 +76,7 @@ const Services = () => {
         .then((res) => res.json())
         .then((response) => {
           console.log("respons", response);
-          if (deletedCount > 0) {
+          if (response.deletedCount > 0) {
             setData((prevState) =>
               prevState.filter((service) => !serviceIds.includes(service._id))
             );
@@ -154,7 +155,7 @@ const Services = () => {
               {load.map((item, index) => {
                 return (
                   <>
-                    <Loader key={index}></Loader>
+                    <Loader key={item}></Loader>
                   </>
                 );
               })}
@@ -163,36 +164,36 @@ const Services = () => {
         ) : (
           <>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 px-5">
-              {data.map((service) => {
+              {data.map((item) => {
                 return (
                   <>
                     <div
-                      key={service._id}
+                      key={item._id}
                       className={`md:w-[350px] ${
-                        deleteService.includes(service._id)
+                        deleteService.includes(item._id)
                           ? "border-red-500  bg-gray-100 text-black"
                           : ""
                       } bg-gray-900 text-white  w-full h-[200px] shadow-lg flex  rounded-md relative`}
                     >
                       <div className=" p-4 ">
                         <img
-                          src={service.imageLink}
+                          src={item?.imageLink}
                           alt="image"
                           loading="lazy"
-                          className="w-16 h-16 border rounded-full"
+                          className="w-full h-16 border"
                         />
                       </div>
 
                       <div className=" px-4">
                         <h2 className={` font-bold p-2 `}>
-                          {service?.service}
+                          {item?.service}
                         </h2>
                         <p className={` p-2 `}>
-                          {service.description.slice(0, 50)}....
+                          {item.description.slice(0, 50)}....
                         </p>
                         <div className=" mt-5  relative">
                           <button
-                            onClick={() => openModal(service._id)}
+                            onClick={() => openModal(item._id)}
                             className="btn btn-sm absolute bottom-[-40px] right-0 bg-blue-500"
                           >
                             <FiEdit></FiEdit>
@@ -206,8 +207,8 @@ const Services = () => {
                           className="w-5 h-5 cursor-pointer"
                           name=""
                           id=""
-                          checked={deleteService.includes(service._id)}
-                          onChange={() => handleSelected(service._id)}
+                          checked={deleteService.includes(item._id)}
+                          onChange={() => handleSelected(item._id)}
                         />
                       </div>
                     </div>
