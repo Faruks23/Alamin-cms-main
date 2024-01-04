@@ -1,23 +1,34 @@
-import { data } from "autoprefixer";
 import React, { useState } from "react";
+import uploadImage from "../../../utils/UploadImage";
 
-const UpdateProject = ({
-  isOpen,
-  service,
-  closeModal,
-  PrevData,
-  setData,
-  
-}) => {
-  const [name, setName] = useState(service?.service);
+const UpdateProject = ({ isOpen, service, closeModal, PrevData, setData }) => {
+  const [name, setName] = useState(service?.ProjectName);
   const [description, setDescription] = useState(service?.description);
-  const [image, setImage] = useState(service?.imageLink);
+  const [image, setImage] = useState(null);
+  const [Loading, setLoading] = useState(false);
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setImage(file);
+  };
 
-  const handleSave = () => {
+  const handleSave = async () => {
+
+
+    try {
+       
+
+    setLoading(true);
     const id = service._id;
-    const newService = { name, description, image };
-    fetch(`${process.env.VITE_SERVER_KEY}/service/update/${id}`, {
-      method: "POST",
+    let imageUrl;
+    if (image) {
+      imageUrl = await uploadImage(image);
+    }
+    let imageLink = imageUrl ? imageUrl : service?.image;
+
+    const newService = { name, description, image: imageLink };
+
+    fetch(`${import.meta.env.VITE_SERVER_KEY}/Project/update/${id}`, {
+      method: "PUT",
       headers: {
         "content-type": "application/json",
       },
@@ -29,8 +40,14 @@ const UpdateProject = ({
         const remaining = PrevData.filter((item) => item._id !== id);
         setData(remaining);
         alert("updated service", data);
-
+        setLoading(false);
+        closeModal();
       });
+      
+     } catch (error) {
+       setLoading(false)
+     }
+
   };
 
   return (
@@ -65,18 +82,16 @@ const UpdateProject = ({
             Image Link:
           </label>
           <input
-            type="text"
-            placeholder="Image URL"
-            value={image}
-            onChange={(e) => setImage(e.target.value)}
+            type="file"
             className="w-full shadow-md bg-gray-800 p-2  rounded mb-4"
+            onChange={handleImageChange}
           />
           <div className="flex justify-end">
             <button
               onClick={handleSave}
               className="bg-blue-500 text-white p-2 rounded mr-2"
             >
-              Save
+            { Loading ?"Loading...":'Save'}
             </button>
             <button
               onClick={closeModal}
