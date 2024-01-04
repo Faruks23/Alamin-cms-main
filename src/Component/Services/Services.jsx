@@ -21,15 +21,20 @@ const Services = () => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
+  
+  const Services = async () => {
+    setLoading(true);
+    const response = await fetch(`${import.meta.env.VITE_SERVER_KEY}/services`);
+    const data = await response.json();
+    setData(data);
+    setLoading(false);
+  };
+
 
   useEffect(() => {
-    setLoading(true);
-    fetch(`${import.meta.env.VITE_SERVER_KEY}/services`)
-      .then((res) => res.json())
-      .then((data) => {
-        setData(data);
-        setLoading(false);
-      });
+   
+     
+    Services()
   }, []);
   console.log(data);
 
@@ -128,7 +133,7 @@ const Services = () => {
                 id=""
                 onChange={handleUnselectAll}
               />{" "}
-              <span >{deleteService.length}</span> Services Selected
+              <span>{deleteService.length}</span> Services Selected
             </>
           ) : (
             <>Services</>
@@ -188,9 +193,7 @@ const Services = () => {
                       </div>
 
                       <div className=" px-4">
-                        <h2 className={` font-bold p-2 `}>
-                          {item?.service}
-                        </h2>
+                        <h2 className={` font-bold p-2 `}>{item?.service}</h2>
                         <p className={` p-2 `}>
                           {item.description.slice(0, 50)}....
                         </p>
@@ -231,12 +234,14 @@ const Services = () => {
           PrevData={data}
           setData={setData}
           closeModal={closeModal}
+          Services={Services}
         />
       )}
 
       {isServiceModalOpen && (
         <>
           <AddServiceModal
+            Services={Services}
             isOpen={isOpenModal}
             onClose={isCloseModal}
             onAddService={addService}

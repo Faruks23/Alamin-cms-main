@@ -2,10 +2,17 @@ import { data } from "autoprefixer";
 import React, { useState } from "react";
 import uploadImage from "../../../utils/UploadImage";
 
-const ServiceModal = ({ isOpen, service, closeModal, PrevData, setData }) => {
+const ServiceModal = ({
+  isOpen,
+  service,
+  closeModal,
+  PrevData,
+  setData,
+  Services,
+}) => {
   const [name, setName] = useState(service?.service);
   const [description, setDescription] = useState(service?.description);
-  
+
   const [image, setImage] = useState(null);
   const [Loading, setLoading] = useState(false);
   const handleImageChange = (e) => {
@@ -13,16 +20,15 @@ const ServiceModal = ({ isOpen, service, closeModal, PrevData, setData }) => {
     setImage(file);
   };
 
-
   const handleSave = async () => {
     setLoading(true);
     const id = service._id;
-    let imageUrl
+    let imageUrl;
     if (image) {
-       imageUrl = await uploadImage(image);
+      imageUrl = await uploadImage(image);
     }
     let imageLink = imageUrl ? imageUrl : service?.imageLink;
-    
+
     const newService = { name, description, image: imageLink };
 
     fetch(`${import.meta.env.VITE_SERVER_KEY}/service/update/${id}`, {
@@ -34,11 +40,10 @@ const ServiceModal = ({ isOpen, service, closeModal, PrevData, setData }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-        const remaining = PrevData.filter((item) => item._id !== id);
-        setData(remaining);
-        alert("updated service", data);
+       
+       
         setLoading(false);
+        Services()
         closeModal();
       });
   };
@@ -76,7 +81,6 @@ const ServiceModal = ({ isOpen, service, closeModal, PrevData, setData }) => {
           </label>
           <input
             type="file"
-       
             onChange={handleImageChange}
             className="w-full shadow-md bg-gray-800 p-2  rounded mb-4"
           />
@@ -85,7 +89,7 @@ const ServiceModal = ({ isOpen, service, closeModal, PrevData, setData }) => {
               onClick={handleSave}
               className="bg-blue-500 text-white p-2 rounded mr-2"
             >
-             {Loading ?"Loading.....":"Save"}
+              {Loading ? "Loading....." : "Save"}
             </button>
             <button
               onClick={closeModal}

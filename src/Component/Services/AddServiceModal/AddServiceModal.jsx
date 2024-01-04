@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import uploadImage from "../../../utils/UploadImage";
 
-const AddServiceModal = ({ isOpen, onClose }) => {
+const AddServiceModal = ({ isOpen, onClose, Services }) => {
   const [serviceName, setServiceName] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState(null);
@@ -41,7 +41,7 @@ const AddServiceModal = ({ isOpen, onClose }) => {
           if (data.insertedId) {
             alert("Success");
             onClose();
-
+            Services()
             setLoading(false);
           }
         });
@@ -97,7 +97,7 @@ const AddServiceModal = ({ isOpen, onClose }) => {
             className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
             onClick={handleAdd}
           >
-           {Loading ?"Loading...":"Add"}
+            {Loading ? "Loading..." : "Add"}
           </button>
           <button
             className="ml-2 bg-gray-300 text-gray-600 px-4 py-2 rounded-lg hover:bg-gray-400"
