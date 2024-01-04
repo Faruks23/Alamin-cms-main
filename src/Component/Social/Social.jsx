@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FaTrashAlt , FaUserEdit} from "react-icons/fa";
 import AddAccount from "./AddAccount/AddAccount";
-import uploadImage from "../../utils/UploadImage";
-import { CgLaptop } from "react-icons/cg";
+
 
 const Social = () => {
   const [socialAccounts, setSocialAccounts] = useState([]);
@@ -15,9 +14,6 @@ const Social = () => {
   const [loading, setLoading] = useState(false);
 
   const [id, setAccountId] = useState("");
-
-  const [image, setImage] = useState(null);
-  console.log(image, "image");
 
   // Assume you have a function to fetch social accounts data
   const fetchSocialAccounts = async () => {
@@ -38,8 +34,8 @@ const Social = () => {
 
   const handleUpdate = async () => {
     setLoading(true);
-    const imageUrl = await uploadImage(image);
-    if (editData && imageUrl) {
+  
+    if (editData) {
       fetch(
         `${import.meta.env.VITE_SERVER_KEY}/Social/update/${editData._id}`,
         {
@@ -47,7 +43,7 @@ const Social = () => {
           headers: {
             "content-type": "application/json",
           },
-          body: JSON.stringify({ editData, images: imageUrl }),
+          body: JSON.stringify({ editData }),
         }
       )
         .then((res) => res.json())
@@ -122,7 +118,7 @@ const Social = () => {
               <div className="imag p-2">
                 <img
                   className=" w-16 h-16 rounded-full"
-                  src={item.image}
+                  src={item?.image}
                   alt=""
                 />
               </div>
@@ -179,12 +175,7 @@ const Social = () => {
                 setEditData({ ...editData, name: e.target.value })
               }
             />
-            <label className="block mb-2">Image:</label>
-            <input
-              className="w-full bg-gray-700 p-2 shadow-md rounded-md mb-4"
-              type="file"
-              onChange={(e) => setImage(e.target.files[0])}
-            />
+            
             <label className="block mb-2">Link:</label>
             <input
               className="w-full p-2 shadow-md bg-gray-700 rounded-md mb-4"

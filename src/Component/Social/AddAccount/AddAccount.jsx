@@ -3,40 +3,24 @@ import uploadImage from "../../../utils/UploadImage";
 import { CgLaptop } from "react-icons/cg";
 
 const AddAccount = ({ isAddModal, setIsAddModal, setUpdated }) => {
-  const [image, setImage] = useState(null);
   const [name, setName] = useState("");
   const [link, setLink] = useState("");
   const [loading, setLoading] = useState(false);
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    setImage(file);
-
-    // // Optionally, you can display a preview of the selected image
-    // const reader = new FileReader();
-    // reader.onloadend = () => {
-    //   // Set a preview image if needed
-    //   // setPreviewImage(reader.result);
-    // };
-    // reader.readAsDataURL(file);
-  };
-  console.log(name, link, image);
+  
 
   const handleAdd = async () => {
     setLoading(true);
-    if (!image) {
-      alert("Please select an image first.");
-      return;
-    }
+    
 
     try {
-      const imageUrl = await uploadImage(image);
+      
 
       fetch(`${import.meta.env.VITE_SERVER_KEY}/Social/post`, {
         method: "POST",
         headers: {
           "content-type": "application/json",
         },
-        body: JSON.stringify({ name, link, image: imageUrl }),
+        body: JSON.stringify({ name, link, }),
       })
         .then((res) => res.json())
         .then((data) => {
@@ -70,12 +54,6 @@ const AddAccount = ({ isAddModal, setIsAddModal, setUpdated }) => {
           className="w-full bg-gray-700 p-2 shadow-md rounded-md mb-4"
           type="text"
           onChange={(e) => setName(e.target.value)}
-        />
-        <label className="block mb-2">Image:</label>
-        <input
-          className="w-full bg-gray-700 p-2 shadow-md rounded-md mb-4"
-          type="file"
-          onChange={handleImageChange}
         />
         <label className="block mb-2">Link:</label>
         <input
