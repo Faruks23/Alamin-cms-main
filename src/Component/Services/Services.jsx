@@ -62,27 +62,30 @@ const Services = () => {
 
 
   const deleteSelectedServices = () => {
-    if (deleteService.length > 0) {
-      const serviceIds = deleteService;
-      const service = { selectedService: serviceIds };
-
-      fetch(`${import.meta.env.VITE_SERVER_KEY}/service/delete`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(service),
-      })
-        .then((res) => res.json())
-        .then((response) => {
-          console.log("respons", response);
-          if (response.deletedCount > 0) {
-            setData((prevState) =>
-              prevState.filter((service) => !serviceIds.includes(service._id))
-            );
-            setDeleteService([]);
+    const alow = confirm('Are you sure you want to delete')
+    if (alow) { 
+          if (deleteService.length > 0) {
+            const serviceIds = deleteService;
+            const service = { selectedService: serviceIds };
+      
+            fetch(`${import.meta.env.VITE_SERVER_KEY}/service/delete`, {
+              method: "DELETE",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(service),
+            })
+              .then((res) => res.json())
+              .then((response) => {
+                console.log("respons", response);
+                if (response.deletedCount > 0) {
+                  setData((prevState) =>
+                    prevState.filter((service) => !serviceIds.includes(service._id))
+                  );
+                  setDeleteService([]);
+                }
+              });
           }
-        });
     }
   };
 

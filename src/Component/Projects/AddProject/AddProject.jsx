@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import uploadImage from "../../../utils/UploadImage";
 
-const AddProjectModal = ({ isOpen, onClose }) => {
+const AddProjectModal = ({ isOpen, onClose, Project }) => {
   const [ProjectName, setServiceName] = useState("");
   const [description, setDescription] = useState("");
-  const [loading,setLoading]=useState(false)
+  const [loading, setLoading] = useState(false);
   const [image, setImage] = useState(null);
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -32,8 +32,9 @@ const AddProjectModal = ({ isOpen, onClose }) => {
           console.log(data);
           if (data.insertedId) {
             alert("Success");
-            onClose()
+            onClose();
             setLoading(false);
+            Project()
           }
         });
     } catch (error) {
@@ -87,7 +88,7 @@ const AddProjectModal = ({ isOpen, onClose }) => {
             className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
             onClick={handleAdd}
           >
-            {loading ?"processing...":'Submit'}
+            {loading ? "processing..." : "Submit"}
           </button>
           <button
             className="ml-2 bg-gray-300 text-gray-600 px-4 py-2 rounded-lg hover:bg-gray-400"

@@ -21,14 +21,16 @@ const Project = () => {
     setIsModalOpen(false);
   };
 
-  useEffect(() => {
+  const Project = async () => {
     setLoading(true);
-    fetch(`${import.meta.env.VITE_SERVER_KEY}/Project`)
-      .then((res) => res.json())
-      .then((data) => {
-        setData(data);
-        setLoading(false);
-      });
+    const response = await fetch(`${import.meta.env.VITE_SERVER_KEY}/Project`);
+    const data = await response.json();
+    setData(data);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    Project();
   }, []);
 
   // console.log(import.meta.env.VITE_URL_KEY);
@@ -64,7 +66,7 @@ const Project = () => {
       const serviceIds = deleteService;
       const service = { selectedService: serviceIds };
 
-      fetch(`${import.meta.env.VITE_SERVER_KEY}/service/delete`, {
+      fetch(`${import.meta.env.VITE_SERVER_KEY}/project/delete`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -74,7 +76,7 @@ const Project = () => {
         .then((res) => res.json())
         .then((response) => {
           console.log("respons", response);
-          if (deletedCount > 0) {
+          if (response.deletedCount > 0) {
             setData((prevState) =>
               prevState.filter((service) => !serviceIds.includes(service._id))
             );
@@ -87,7 +89,6 @@ const Project = () => {
   // add service functionality
 
   const [isServiceModalOpen, setServiceModalOpen] = useState(false);
-  const [services, setServices] = useState([]); // Your services state
 
   const isOpenModal = () => {
     setServiceModalOpen(true);
@@ -96,8 +97,6 @@ const Project = () => {
   const isCloseModal = () => {
     setServiceModalOpen(false);
   };
-
- 
 
   return (
     <div className="container mx-auto py-10 relative ">
@@ -131,7 +130,7 @@ const Project = () => {
             </>
           )}
           <button onClick={isOpenModal} className=" btn btn-sm bg-blue-500">
-             + Add Project
+            + Add Project
           </button>
         </div>
       </div>
@@ -216,15 +215,16 @@ const Project = () => {
           PrevData={data}
           setData={setData}
           closeModal={closeModal}
+        
         />
       )}
 
       {isServiceModalOpen && (
         <>
           <AddProjectModal
+            Project={Project}
             isOpen={isOpenModal}
             onClose={isCloseModal}
-          
           />
         </>
       )}

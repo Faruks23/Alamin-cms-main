@@ -1,7 +1,14 @@
 import { data } from "autoprefixer";
 import React, { useState } from "react";
 
-const UpdateProject = ({ isOpen, service, closeModal, PrevData, setData }) => {
+const UpdateProject = ({
+  isOpen,
+  service,
+  closeModal,
+  PrevData,
+  setData,
+  
+}) => {
   const [name, setName] = useState(service?.service);
   const [description, setDescription] = useState(service?.description);
   const [image, setImage] = useState(service?.imageLink);
@@ -22,6 +29,7 @@ const UpdateProject = ({ isOpen, service, closeModal, PrevData, setData }) => {
         const remaining = PrevData.filter((item) => item._id !== id);
         setData(remaining);
         alert("updated service", data);
+
       });
   };
 

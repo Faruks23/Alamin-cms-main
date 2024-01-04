@@ -33,15 +33,15 @@ const AddServiceModal = ({ isOpen, onClose }) => {
         headers: {
           "content-type": "application/json",
         },
-        body: JSON.stringify({ serviceName, description, image: imageUrl }),
+        body: JSON.stringify({ serviceName, description, imageLink: imageUrl }),
       })
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
           if (data.insertedId) {
             alert("Success");
-            onClose()
-           
+            onClose();
+
             setLoading(false);
           }
         });
